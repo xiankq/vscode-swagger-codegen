@@ -25,7 +25,7 @@
 				"swagger-codegen.tsSavePath": {
 					"type": "string",
 					"description": "生成的ts文件存放的目录",
-					"default": "src/model/"
+					"default": "src/swagger_api/"
 				},
 				"swagger-codegen.tsAdditionCode": {
 					"type": "array",
