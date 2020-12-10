@@ -1,17 +1,33 @@
 {
-	"name": "swagger-codegen",
-	"displayName": "swagger-codegen",
-	"description": "",
+	"name": "vscode-swagger-codegen",
+	"displayName": "Swagger Codegen",
+	"description": "Create the serialized file with the Swagger",
+	"repository": "https://github.com/awagege/vscode-swagger-codegen",
 	"version": "0.0.1",
 	"publisher": "Kaiqun",
+	"icon": "logo.png",
 	"engines": {
 		"vscode": "^1.47.0"
 	},
+	"keywords": [
+		"typescript",
+		"swagger",
+		"serialize",
+		"json"
+	],
 	"categories": [
-		"Other"
+		"Programming Languages",
+		"Snippets",
+		"Linters",
+		"Keymaps",
+		"SCM Providers",
+		"Other",
+		"Extension Packs",
+		"Machine Learning",
+		"Visualization"
 	],
 	"activationEvents": [
-		"*"
+		"onStartupFinished"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -26,10 +42,6 @@
 					"type": "string",
 					"description": "生成的ts文件存放的目录",
 					"default": "src/swagger_api/"
-				},
-				"swagger-codegen.tsAdditionCode": {
-					"type": "array",
-					"description": "生成的ts文件顶部附加的代码"
 				}
 			}
 		},
@@ -49,6 +61,7 @@
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
+		"vscode:publish": "vsce publish",
 		"compile": "tsc -p ./",
 		"lint": "eslint src --ext ts",
 		"watch": "tsc -watch -p ./",

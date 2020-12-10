@@ -47,23 +47,11 @@ export namespace Swagger {
         operationId: string;
         consumes: string[];
         produces: string[];
-        parameters: {
-          in: string;
-          name: string;
-          description: string;
-          type: string;
-          required: boolean;
-          "x-example": string;
-          schema: {
-            $ref: string;
-          };
-        }[];
+        parameters: SchemaNode[];
         responses: {
           [key: string]: {
             description: string;
-            schema: {
-              $ref: string;
-            };
+            schema: SchemaNode;
           };
         };
       };
@@ -71,17 +59,20 @@ export namespace Swagger {
   }
 
   export interface Definitions {
-    [key: string]: {
-      type: string;
-      properties: {
-        [key: string]: {
-          type: string;
-          $ref: string;
-        };
-      };
-      items: {
-        $ref: string;
-      };
-    };
+    [key: string]: SchemaNode;
   }
+}
+export interface SchemaNode {
+  in: string;
+  name: string;
+  type: string;
+  $ref: string;
+  description: string;
+  required: string;
+  "x-example": string;
+  schema: SchemaNode;
+  properties: {
+    [key: string]: SchemaNode;
+  };
+  items: SchemaNode;
 }

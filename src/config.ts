@@ -7,21 +7,16 @@ export class Config {
     return vscode.workspace.getConfiguration("swagger-codegen");
   }
   /**
-   * 获取swagger域名地址
+   * 获取swagger域名地址(已去重)
    */
   static get urls(): string[] {
-    return this.getConfigs.get("urls") ?? [];
+    const arr: string[] = this.getConfigs.get("urls") ?? [];
+    return Array.from(new Set(arr));
   }
   /**
    * 生成的ts文件存放的目录
    */
   static get tsSavePath(): string {
     return this.getConfigs.get("tsSavePath") ?? "";
-  }
-  /**
-   * 生成的ts文件顶部附加的代码
-   */
-  static get tsAdditionCode(): string | undefined {
-    return this.getConfigs.get("tsAdditionCode");
   }
 }
