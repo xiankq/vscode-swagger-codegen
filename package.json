@@ -1,87 +1,87 @@
 {
-	"name": "vscode-swagger-codegen",
-	"displayName": "Swagger Codegen",
-	"description": "Create the serialized file with the Swagger",
-	"repository": "https://github.com/awagege/vscode-swagger-codegen",
-	"version": "0.0.1",
-	"publisher": "Kaiqun",
-	"icon": "logo.png",
-	"engines": {
-		"vscode": "^1.47.0"
-	},
-	"keywords": [
-		"typescript",
-		"swagger",
-		"serialize",
-		"json"
-	],
-	"categories": [
-		"Programming Languages",
-		"Snippets",
-		"Linters",
-		"Keymaps",
-		"SCM Providers",
-		"Other",
-		"Extension Packs",
-		"Machine Learning",
-		"Visualization"
-	],
-	"activationEvents": [
-		"onStartupFinished"
-	],
-	"main": "./out/extension.js",
-	"contributes": {
-		"configuration": {
-			"title": "swagger-codegen",
-			"properties": {
-				"swagger-codegen.urls": {
-					"type": "array",
-					"description": "Yapi项目的域名+token"
-				},
-				"swagger-codegen.tsSavePath": {
-					"type": "string",
-					"description": "生成的ts文件存放的目录",
-					"default": "src/swagger_api/"
-				}
-			}
-		},
-		"commands": [
-			{
-				"command": "swagger-codegen.start",
-				"title": "Swagger Codegen"
-			}
-		],
-		"keybindings": [
-			{
-				"command": "swagger-codegen.start",
-				"key": "ctrl+f10",
-				"mac": "cmd+f10"
-			}
-		]
-	},
-	"scripts": {
-		"vscode:prepublish": "npm run compile",
-		"vscode:publish": "vsce publish",
-		"compile": "tsc -p ./",
-		"lint": "eslint src --ext ts",
-		"watch": "tsc -watch -p ./",
-		"pretest": "npm run compile && npm run lint",
-		"test": "node ./out/test/runTest.js"
-	},
-	"devDependencies": {
-		"@types/vscode": "^1.47.0",
-		"@types/glob": "^7.1.3",
-		"@types/mocha": "^8.0.0",
-		"@types/node": "^12.11.7",
-		"eslint": "^7.9.0",
-		"@typescript-eslint/eslint-plugin": "^4.1.1",
-		"@typescript-eslint/parser": "^4.1.1",
-		"glob": "^7.1.6",
-		"mocha": "^8.1.3",
-		"typescript": "^4.0.2",
-		"vscode-test": "^1.4.0"
-	},
-	"dependencies": {
-		"axios": "^0.21.0"
-	}
+  "name": "vscode-swagger-codegen",
+  "displayName": "Swagger Codegen",
+  "description": "Create the serialized file with the Swagger",
+  "repository": "https://github.com/awagege/vscode-swagger-codegen",
+  "version": "0.0.2",
+  "publisher": "Kaiqun",
+  "icon": "logo.png",
+  "engines": {
+    "vscode": "^1.47.0"
+  },
+  "keywords": [
+    "typescript",
+    "swagger",
+    "serialize",
+    "json"
+  ],
+  "categories": [
+    "Programming Languages",
+    "Snippets",
+    "Linters",
+    "Keymaps",
+    "SCM Providers",
+    "Other",
+    "Extension Packs",
+    "Machine Learning",
+    "Visualization"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "swagger-codegen",
+      "properties": {
+        "swagger-codegen.urls": {
+          "type": "array",
+          "description": "返回swagger-api的域名路径"
+        },
+        "swagger-codegen.tsSavePath": {
+          "type": "string",
+          "description": "生成的ts文件存放的目录",
+          "default": "src/swagger_api/"
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "swagger-codegen.start",
+        "title": "Swagger Codegen"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "swagger-codegen.start",
+        "key": "ctrl+f10",
+        "mac": "cmd+f10"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "vscode:publish": "vsce publish",
+    "compile": "tsc -p ./",
+    "lint": "eslint src --ext ts",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.47.0",
+    "@types/glob": "^7.1.3",
+    "@types/mocha": "^8.0.0",
+    "@types/node": "^12.11.7",
+    "eslint": "^7.9.0",
+    "@typescript-eslint/eslint-plugin": "^4.1.1",
+    "@typescript-eslint/parser": "^4.1.1",
+    "glob": "^7.1.6",
+    "mocha": "^8.1.3",
+    "typescript": "^4.0.2",
+    "vscode-test": "^1.4.0"
+  },
+  "dependencies": {
+    "axios": "^0.21.0"
+  }
 }
