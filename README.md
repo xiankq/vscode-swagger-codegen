@@ -16,3 +16,12 @@
 ```
 
 通过快捷键 Ctrl+F10 或通过命令面板找到 Swagger Codegen 即可自动生成序列化文件
+
+## Release Notes
+
+This section describes major releases and their improvements. For a detailed list of changes please refer to the [change log](./CHANGELOG.md);
+
+### Version 1.0.0
+
+- 首个正式版本
+- ts interface 注释迁移至内部

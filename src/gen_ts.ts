@@ -56,45 +56,45 @@ export class GenTs {
     //
     else if (data?.properties) {
       const properties = data?.properties;
-      const annotation = [];
       const items: string[] = [];
       for (const field in properties) {
         const fieldUpperCase = Utils.toFirstUpperCase(field);
         const property = properties[field];
         //注释
-        annotation.push(
-          `   * @param ${field}  ${property?.description ?? ""}${
-            property?.required ? "  必须" : ""
-          }${
-            property?.["x-example"]
-              ? "  `示例:" + property?.["x-example"] + "`"
-              : ""
-          }`
-        );
+        const annotation = `\n  /**\n   * ${property?.description ?? ""}${
+          property?.required ? "  必须" : ""
+        }${
+          property?.["x-example"]
+            ? "  `示例:" + property?.["x-example"] + "`"
+            : ""
+        }\n   */\n`;
         if (property?.$ref || property?.properties) {
-          items.push(`    ${field}?: ${fieldUpperCase};`);
+          items.push(`${annotation}    ${field}?: ${fieldUpperCase};`);
           back = back.concat(this.recursion(fieldUpperCase, property));
         }
         //array
         else if (property?.items) {
           if (property?.items?.$ref || property?.items?.properties) {
-            items.push(`    ${field}?: ${fieldUpperCase}[];`);
+            items.push(`${annotation}    ${field}?: ${fieldUpperCase}[];`);
             back = back.concat(this.recursion(fieldUpperCase, property?.items));
           } else {
             items.push(
-              `    ${field}?: ${this.typeShift(property?.items?.type)}[];`
+              `${annotation}    ${field}?: ${this.typeShift(
+                property?.items?.type
+              )}[];`
             );
           }
         }
         //type
         else {
-          items.push(`    ${field}?: ${this.typeShift(property?.type)};`);
+          items.push(
+            `${annotation}    ${field}?: ${this.typeShift(property?.type)};`
+          );
         }
       }
-      const content1 = `\n  /**\n${annotation.join("\n")}*\n   */`;
-      back.push(content1);
-      const content2 = `  export interface ${name} {\n${items.join("\n")}\n  }`;
-      back.push(content2);
+
+      const content = `  export interface ${name} {\n${items.join("\n")}\n  }`;
+      back.push(content);
     }
     return back;
   }
@@ -147,15 +147,13 @@ export class GenTs {
        * @summary  ${summary ?? ""}
        * @desc     ${description ?? ""} 
        */
-      export function request(requester: (params: any) => any,params?: RequestInput): Promise<${
+      export function request(requester: (params: any) => any,params?: RequestConfig): Promise<${
         responses?.schema ? "ResponsesBody" : "any"
       }> {
         return requester({
              url: '${this.path}',
              method: '${this.method}',
-             params: params?.params,
-             paths: params?.paths,
-             data: params?.data,
+             ...params,
         });
       }`;
     codeBlocks.push(requestContent);
@@ -165,8 +163,8 @@ export class GenTs {
     const bodyParameters = parameters.filter((e) => e.in === "body");
     //生成请求类
     const requestInput = `
-      export interface RequestInput {\n    [x: string]: any;\n${
-        queryParameters.length ? `    query?: RequestQuery;\n` : ""
+      export interface RequestConfig {\n    [x: string]: any;\n${
+        queryParameters.length ? `    params?: RequestQuery;\n` : ""
       }${bodyParameters.length ? `    data?: RequestData` : ""}${
       pathParameters.length ? `    path?: RequestPath` : ""
     }
