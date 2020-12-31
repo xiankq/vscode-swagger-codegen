@@ -3,7 +3,7 @@
   "displayName": "Swagger Codegen",
   "description": "Create the serialized file with the Swagger",
   "repository": "https://github.com/awagege/vscode-swagger-codegen",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "Kaiqun",
   "icon": "logo.png",
   "engines": {

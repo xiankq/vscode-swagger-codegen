@@ -42,7 +42,7 @@ export class GenTs {
    * @param name
    * @param obj
    */
-  private recursion(name: string, obj: SchemaNode): string[] {
+  private recursion(name: string, obj: SchemaNode, must = false): string[] {
     let back: string[] = [];
     const data = <SchemaNode>obj; //类型强制转换
 
@@ -69,17 +69,23 @@ export class GenTs {
             : ""
         }\n   */\n`;
         if (property?.$ref || property?.properties) {
-          items.push(`${annotation}    ${field}?: ${fieldUpperCase};`);
+          items.push(
+            `${annotation}    ${field}${must ? "?:" : ":"}  ${fieldUpperCase};`
+          );
           back = back.concat(this.recursion(fieldUpperCase, property));
         }
         //array
         else if (property?.items) {
           if (property?.items?.$ref || property?.items?.properties) {
-            items.push(`${annotation}    ${field}?: ${fieldUpperCase}[];`);
+            items.push(
+              `${annotation}    ${field}${
+                must ? "?:" : ":"
+              }${fieldUpperCase}[];`
+            );
             back = back.concat(this.recursion(fieldUpperCase, property?.items));
           } else {
             items.push(
-              `${annotation}    ${field}?: ${this.typeShift(
+              `${annotation}    ${field}${must ? "?:" : ":"} ${this.typeShift(
                 property?.items?.type
               )}[];`
             );
@@ -88,7 +94,9 @@ export class GenTs {
         //type
         else {
           items.push(
-            `${annotation}    ${field}?: ${this.typeShift(property?.type)};`
+            `${annotation}    ${field}${must ? "?:" : ":"} ${this.typeShift(
+              property?.type
+            )};`
           );
         }
       }
@@ -187,7 +195,7 @@ export class GenTs {
     //生成响应
     if (responses?.schema) {
       codeBlocks = codeBlocks.concat(
-        this.recursion("ResponsesBody", responses?.schema)
+        this.recursion("ResponsesBody", responses?.schema, true)
       );
     }
 

@@ -19,7 +19,9 @@
 
 ## Release Notes
 
-This section describes major releases and their improvements. For a detailed list of changes please refer to the [change log](./CHANGELOG.md);
+### Version 1.0.1
+
+- 返回参数默认不包问号语句
 
 ### Version 1.0.0
 
